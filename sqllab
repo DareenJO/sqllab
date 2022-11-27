@@ -15,7 +15,7 @@ create table users(
 
     full_name varchar(20),
       email varchar(20) unique ,
-    gender char(1) check ( 'f' or  'm' ),
+    gender char(1) check (gender= 'f' or gender= 'm' ),
      date_of_birth varchar(15),
      create_at datetime,
      country_code int ,
@@ -26,14 +26,14 @@ create table products(
     id int primary key ,
     name varchar(10) not null ,
     price int default 0,
-    status varchar(10) check ( 'valid' or 'expired' ),
+    status varchar(10) check (status= 'valid' or status='expired' ),
     created_at datetime
 );
 
 create table orders (
     id int primary key ,
     user_id int,
-    status varchar(6) check ( 'start' or 'finish' ),
+    status varchar(6) check (status= 'start' or status='finish' ),
     create_at datetime,
       FOREIGN KEY (user_id) REFERENCES users(id)
 );
