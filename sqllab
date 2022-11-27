@@ -1,0 +1,55 @@
+create database store;
+
+
+create table countries(
+    code int primary key ,
+    name varchar(20) unique ,
+    continent_name varchar(20) not null
+
+
+
+);
+
+create table users(
+    id int primary key ,
+
+    full_name varchar(20),
+      email varchar(20) unique ,
+    gender char(1) check ( 'f' or  'm' ),
+     date_of_birth varchar(15),
+     create_at datetime,
+     country_code int ,
+     FOREIGN KEY (country_code) REFERENCES countries(code)
+);
+
+create table products(
+    id int primary key ,
+    name varchar(10) not null ,
+    price int default 0,
+    status varchar(10) check ( 'valid' or 'expired' ),
+    created_at datetime
+);
+
+create table orders (
+    id int primary key ,
+    user_id int,
+    status varchar(6) check ( 'start' or 'finish' ),
+    create_at datetime,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+create table order_products(
+    order_id int primary key ,
+    product_id int primary key ,
+    quantity int default 0,
+     FOREIGN KEY (order_id) REFERENCES orders(id),
+       FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+insert into  countries values (996,'saudi arabia','ryiadh');
+insert into users values (1,'Dareen Alomari','d@gmail.com','f','11-04-1997','11-04-1997');
+insert into products values (22,'switch',1440,'valid','11-12-2022');
+insert into orders values(11,1,'finish','12-12-2022');
+insert into order_products values (11,22,1);
+update countries  set name ='qatar' where name='saudi arabia';
+delete from products where price= 1440;
